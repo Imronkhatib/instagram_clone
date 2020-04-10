@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  static final String id = 'login_screen';
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _email;
-  String _password;
+  String _email, _password,_name;
   _submit() {
-    if (_formKey.currentState.validate()){
+    if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       print(_email);
       print(_password);
+      print(_name);
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +45,18 @@ class _LoginScreenState extends State<LoginScreen> {
                       vertical: 10,
                     ),
                     child: TextFormField(
+                      decoration: InputDecoration(labelText: 'name'),
+                      validator: (input) => (input.trim().isEmpty
+                          ? null
+                          : 'Please enter a valid name'),
+                      onSaved: (input) => _email = input,
+                    ),
+                  ),Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 30.0,
+                      vertical: 10,
+                    ),
+                    child: TextFormField(
                       decoration: InputDecoration(labelText: 'email'),
                       validator: (input) => (input.contains('@')
                           ? null
@@ -58,7 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: TextFormField(
                       decoration: InputDecoration(labelText: 'password'),
                       validator: (input) => input.length < 6
-                          ? 'please enter a longer password' : null,
+                          ? 'please enter a longer password'
+                          : null,
                       onSaved: (input) => _password = input,
                       obscureText: true,
                     ),
@@ -77,7 +92,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                  )
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Text('Sign Up'),
+                    ),
+                  ),
                 ],
               ),
             )
