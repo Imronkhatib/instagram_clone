@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:instagram_clone/screens/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static final String id = 'login_screen';
@@ -8,13 +9,12 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  String _email, _password,_name;
+  String _email, _password;
   _submit() {
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
       print(_email);
       print(_password);
-      print(_name);
     }
   }
 
@@ -40,18 +40,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 30.0,
-                      vertical: 10,
-                    ),
-                    child: TextFormField(
-                      decoration: InputDecoration(labelText: 'name'),
-                      validator: (input) => (input.trim().isEmpty
-                          ? null
-                          : 'Please enter a valid name'),
-                      onSaved: (input) => _email = input,
-                    ),
-                  ),Padding(
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30.0,
                       vertical: 10,
@@ -96,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 10),
                   Container(
                     child: GestureDetector(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () => Navigator.pushNamed(context, SignUpScreen.id),
                       child: Text('Sign Up'),
                     ),
                   ),
